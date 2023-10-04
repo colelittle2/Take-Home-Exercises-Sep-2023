@@ -2,72 +2,78 @@
 
 namespace TrainSystem
 {
-    public class Engine
-    {
-        private bool _InService;
-        public bool InService { 
-            get => _InService; 
-            set => InService = value;
-        }
-        public int _HorsePower;
-        public int _Weight;
+	public class Engine
+	{
+		private int _horsePower;
+		private int _weight;
 
+		public Engine(string model, string serialNumber, int weight, int horsePower)
+		{
+			if (string.IsNullOrWhiteSpace(model) || string.IsNullOrWhiteSpace(serialNumber))
+			{
+				throw new ArgumentNullException();
+			}
 
-        public int HorsePower
-        {
-            get => _HorsePower;
-            set
-            {
-                // Add code to check if InService
-                if (! _InService)
-                {
-                    throw new Exception("Engine is not in service");
-                }
+			if (weight <= 0 || horsePower <=0 )
+			{
+				throw new ArgumentException("value must be above zero");
+			}
 
-                if (! Utilities.InHundreds(value))
-                {
-                    throw new Exception("Engine horsepower must be positive and non-zero");
-                }
-                /// Add code to validate value is > 0 and in 100 increments 
-                _HorsePower = value;
-            }
-        }
+			Model = model;
+			SerialNumber = serialNumber;
+			Weight = weight;
+			HorsePower = horsePower;
+			InService = true;
+		}
 
-       
-        public string Model { get; private set; }
-        public string SerialNumber { get; private set; }
-        public int Weight
-        {
-            get => _Weight;
-            set
-            {
+		public int HorsePower
+		{
+			get => _horsePower;
+			set
+			{
+				if (InService)
+				{
+					throw new InvalidOperationException("Engine is not in service.");
+				}
 
-                if (!_InService)
-                {
-                    throw new Exception("Engine is not in service");
-                }
+				if (!Utilities.InHundreds(value))
+				{
+					throw new InvalidOperationException("Invalid horsepower value.");
+				}
 
-                if (! Utilities.InHundreds(value))
-                {
-                    throw new Exception("Engine weight must be positive and non-zero");
-                }
-                // Add code to InService and if value is > 0 and in 100 increments
-                _Weight = value;
-            }
-        }
+				_horsePower = value;
+			}
+		}
 
-        public Engine(string model, string serialNumber, int weight, int horsepower)
-        {
-            // Missing code to value model and serialNumber
+	
 
-            Model = model;
-            SerialNumber = serialNumber;
+		public int Weight
+		{
+			get => _weight;
+			set
+			{
+				if (InService)
+				{
+					throw new InvalidOperationException("Engine is not in service.");
+				}
 
-            Weight = weight;
-            HorsePower = horsepower;
-            InService = true;
-        }
+				if (! Utilities.InHundreds(value))
+				{
+					throw new InvalidOperationException("Invalid weight value.");
+				}
 
-    }
+				_weight = value;
+			}
+		}
+
+		public bool InService { get; set; }
+		public string Model { get; set; }
+		public string SerialNumber { get; set; }
+
+		public override string ToString()
+		{
+			return $"{Model},{SerialNumber},{Weight},{HorsePower},{InService}";
+		}
+	}
 
 }

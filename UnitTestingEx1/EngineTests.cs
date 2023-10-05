@@ -67,7 +67,7 @@ namespace UnitTestingEx1
             //Then - Assert - using the FluentAssertions NuGet package
             actual.HorsePower.Should().Be(expectedEngineHorsePower);
         }
-        #endregion
+       #endregion
 
        #region Exception testing
         //exceptions

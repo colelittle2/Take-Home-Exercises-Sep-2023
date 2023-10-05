@@ -9,9 +9,14 @@ namespace TrainSystem
 
 		public Engine(string model, string serialNumber, int weight, int horsePower)
 		{
-			if (string.IsNullOrWhiteSpace(model) || string.IsNullOrWhiteSpace(serialNumber))
+			if (string.IsNullOrWhiteSpace(model))
 			{
-				throw new ArgumentNullException();
+				throw new ArgumentNullException("model cannot be null or whitespace");
+			}
+
+			if (string.IsNullOrWhiteSpace(serialNumber))
+			{
+				throw new ArgumentNullException("serial number cannot be null or whitespace");
 			}
 
 			if (weight <= 0 || horsePower <=0 )
@@ -38,7 +43,12 @@ namespace TrainSystem
 
 				if (!Utilities.InHundreds(value))
 				{
-					throw new InvalidOperationException("Invalid horsepower value.");
+					throw new ArgumentException("Invalid horsepower value.");
+				}
+
+				if(value < 3500 || value > 5500)
+				{
+					throw new ArgumentException("Invalid horsepower value.");
 				}
 
 				_horsePower = value;
@@ -59,7 +69,12 @@ namespace TrainSystem
 
 				if (! Utilities.InHundreds(value))
 				{
-					throw new InvalidOperationException("Invalid weight value.");
+					throw new ArgumentException("Invalid weight value.");
+				}
+				
+				if(value < 147000 || value > 148000)
+				{
+					throw new ArgumentException("Invalid weight value.");
 				}
 
 				_weight = value;

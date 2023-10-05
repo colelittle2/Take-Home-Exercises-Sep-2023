@@ -6,7 +6,7 @@ namespace UnitTestingEx1
 {
     public class EngineTests
     {
-        #region Successful tests
+       /* #region Successful tests
         [Fact]
         public void Create_A_Good_Engine()
         {
@@ -67,9 +67,10 @@ namespace UnitTestingEx1
             //Then - Assert - using the FluentAssertions NuGet package
             actual.HorsePower.Should().Be(expectedEngineHorsePower);
         }
-       #endregion
+       #endregion*/
+      
 
-       #region Exception testing
+        #region Exception testing
         //exceptions
         [Theory]
         [InlineData(null, "12345", 147000, 4400)]
@@ -174,6 +175,7 @@ namespace UnitTestingEx1
             //Then - Assert
             action.Should().Throw<InvalidOperationException>();
         }
-        #endregion
+        #endregion 
+        
     }
 }

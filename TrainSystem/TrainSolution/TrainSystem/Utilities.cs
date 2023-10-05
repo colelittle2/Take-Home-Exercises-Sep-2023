@@ -12,7 +12,7 @@ namespace TrainSystem
         
             public static bool InHundreds(int value)
             {
-                return value % 100 == 0;
+                return value % 100 == 0 ;
             }
 
             public static bool IsPostiveNonZero(int value)
